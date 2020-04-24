@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+	<bean id="user1Controller" name="/user1Controller.action" class="com.cydi.controller.User1Controller"></bean>
+	<bean id="user2Controller" name="/user2Controller.action" class="com.cydi.controller.User2Controller"></bean>
+	
+	<!-- 1:org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping把bean的名字做为url进行查找，也就是handler必须配置name属性 -->
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
+	<!-- 2:org.springframework.web.servlet.handler.SimpleUrlHandlerMapping  里面可以配置属性 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/user1Controller.action">user1Controller</prop>
+				<prop key="/user3Controller.action">user1Controller</prop>
+				<prop key="/user4Controller.action">user1Controller</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 1:org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter写的controller要实现Controller的接口 -->
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+	<!-- 2:org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter 写controler要实现HttpRequestHandler接口 -->
+	<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter "></bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"></bean>
+</beans>
